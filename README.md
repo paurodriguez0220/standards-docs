@@ -50,7 +50,7 @@ AI does the heavy lifting. You set the standard. Use AI to do what you'd otherwi
 | [Code Style & Conventions](code-style.md) | 📝 TODO |
 | [Design Patterns](design-patterns.md) | ✅ First draft |
 | [API Design](api-design.md) | 📝 TODO |
-| [Testing](testing.md) | 📝 TODO |
+| [Testing](testing.md) | ✅ First draft |
 
 ### Architecture
 
