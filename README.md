@@ -70,7 +70,7 @@ AI does the heavy lifting. You set the standard. Use AI to do what you'd otherwi
 
 | Document | Status |
 | --- | --- |
-| [Security Practices](security.md) | 📝 TODO |
+| [Security Practices](security.md) | ✅ First draft |
 
 ### AI & Tooling
 
