@@ -4,6 +4,15 @@ Testing philosophy and standards that apply across projects regardless of langua
 
 ---
 
+## Every Project Must Have Tests
+
+No exceptions. A project without a test project has no regression safety net. Shipping code without tests means every future change is a gamble.
+
+- Create a test project alongside the main project from the start — adding tests later is harder and rarely happens.
+- At minimum, cover the happy path and at least one error path for every public-facing behaviour.
+
+---
+
 ## Philosophy
 
 - Tests are first-class code. They deserve the same care as production code.
@@ -122,5 +131,5 @@ Rules:
 - [API Design](api-design.md)
 
 ---
-*Maintained by paurodriguez0220 · Last updated: 2026-06-15*
-*Standards: https://github.com/paurodriguez0220/standards*
+*Maintained by paurodriguez0220 · Last updated: 2026-06-18*
+*Standards: https://github.com/paurodriguez0220/standards-docs*
