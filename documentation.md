@@ -140,7 +140,7 @@ Every project README and doc file ends with a signature block:
 ```markdown
 ---
 *Maintained by paurodriguez0220 · Last updated: YYYY-MM-DD*
-*Standards: https://github.com/paurodriguez0220/standards*
+*Standards: https://github.com/paurodriguez0220/standards-docs*
 ```
 
 Update the date when the document changes. The signature is a signal that the document is actively owned, not abandoned.

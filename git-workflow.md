@@ -163,4 +163,4 @@ Tag on `main` after merge. Automate release notes where possible.
 
 ---
 *Maintained by paurodriguez0220 · Last updated: 2026-06-17*
-*Standards: https://github.com/paurodriguez0220/standards*
+*Standards: https://github.com/paurodriguez0220/standards-docs*

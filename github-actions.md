@@ -213,4 +213,4 @@ Call it with `uses: ./.github/workflows/e2e-api.yml` and pass `secrets: inherit`
 
 ---
 *Maintained by paurodriguez0220 · Last updated: 2026-06-15*
-*Standards: https://github.com/paurodriguez0220/standards*
+*Standards: https://github.com/paurodriguez0220/standards-docs*

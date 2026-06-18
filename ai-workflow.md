@@ -225,4 +225,4 @@ Claude Code inherits the terminal PATH so `dotnet <dll>` works here. Restart the
 
 ---
 *Maintained by paurodriguez0220 · Last updated: 2026-06-17*
-*Standards: https://github.com/paurodriguez0220/standards*
+*Standards: https://github.com/paurodriguez0220/standards-docs*
