@@ -34,9 +34,7 @@ Explicitly name the design patterns used (Options pattern, Strategy, Factory, Or
 All external services, NuGet packages, and integrations the app needs at runtime.
 | Dependency | Purpose |
 | --- | --- |
-| Gmail API | Fetches emails |
-| SQLite | Persistent storage |
-| iText7 | PDF manipulation |
+| _external service or package_ | _what the app uses it for_ |
 
 List only runtime dependencies — not build tools or test libraries.
 
