@@ -227,10 +227,11 @@ Exclude subfolders from the main `.csproj` using `<Compile Remove>`:
 
 ```xml
 <ItemGroup>
-  <Compile Remove="SoaDiag/**" />
-  <Compile Remove="BpiDiag/**" />
+  <Compile Remove="helpers/**" />
 </ItemGroup>
 ```
+
+A single wildcard covers every helper inside the folder — no need to update the exclusion when a new helper is added.
 
 The excluded folders can contain their own `.csproj` (making them runnable standalone projects) or just raw `.cs` files — either way the Functions SDK ignores them.
 
@@ -238,14 +239,18 @@ The excluded folders can contain their own `.csproj` (making them runnable stand
 
 ### Companion Diagnostic CLI Pattern
 
-When a project has a SQLite database (or any other local data store that can be queried directly), add a companion `*Diag/` project alongside the main project:
+When a project has a SQLite database (or any other local data store that can be queried directly), add a companion diagnostic project under `helpers/`:
 
 ```
 MyApp/
-├── MyApp.csproj          ← main build
-├── MyAppDiag/
-│   ├── MyAppDiag.csproj  ← standalone, excluded from main build
-│   └── Program.cs        ← CLI verbs: list, show, search, count
+├── MyApp.csproj            ← main build
+├── helpers/                ← excluded from main build via <Compile Remove="helpers/**" />
+│   ├── MyAppDiag/
+│   │   ├── MyAppDiag.csproj
+│   │   └── Program.cs      ← CLI verbs: list, show, search, count
+│   └── BpiDiag/            ← one-off investigative tool, kept for reference
+│       ├── BpiDiag.csproj
+│       └── Program.cs
 ```
 
 The Diag project references only what it needs (e.g. `Microsoft.Data.Sqlite`) and connects to the same database file used by the running app. Standard verbs:
