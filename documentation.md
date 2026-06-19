@@ -80,7 +80,8 @@ docs/
 ├── runbooks/               ← operational procedures
 │   └── rotate-secrets.md
 └── tasks/                  ← lightweight task tracking (see below)
-    ├── queue/              ← not started / in progress
+    ├── queue/              ← idea or rough plan, not yet designed
+    ├── defined/            ← fully planned, ready to implement
     └── finished/           ← completed, kept for reference
 ```
 
@@ -130,18 +131,27 @@ For personal projects or projects without a ticket system, use `docs/tasks/` to 
 
 ```
 docs/tasks/
-├── queue/      ← not started or in progress
+├── queue/      ← idea or rough plan, not yet fully designed
+├── defined/    ← fully planned with implementation steps, ready to start
 └── finished/   ← done, kept for reference
 ```
 
-One file per task. Move the file from `queue/` to `finished/` when done — don't delete it.
+One file per task. Advance the file through the lifecycle: `queue/` → `defined/` → `finished/`. Never delete — move.
 
-### Template
+### Lifecycle
+
+| Folder | Meaning |
+| --- | --- |
+| `queue/` | The task has been identified. Goal and context are written. Design is rough or TBD. |
+| `defined/` | The task has a detailed implementation plan. File changes, patterns, and acceptance criteria are clear. Ready to pick up and execute without further design work. |
+| `finished/` | Done. Kept as a record of intent and decisions. |
+
+### Template — Queue (lightweight)
 
 ```markdown
 # Task: <Short title>
 
-**Status:** Planned | In Progress | Done
+**Status:** Planned
 
 ## Goal
 One sentence.
@@ -150,11 +160,40 @@ One sentence.
 Why this matters. What triggered it.
 
 ## Proposed Design
-Enough detail to start — not a full spec.
+Enough detail to capture the idea — not a full spec.
 
 ## Acceptance Criteria
 - [ ] Item one
 - [ ] Item two
+```
+
+### Template — Defined (full plan)
+
+```markdown
+# Task: <Short title>
+
+**Status:** Defined
+
+## Goal
+One sentence.
+
+## Context
+Why this matters. What triggered it. Key constraints.
+
+## Implementation Plan
+
+### Step 1 — <name>
+Which files change, what they do, and why.
+
+### Step 2 — <name>
+...
+
+## Acceptance Criteria
+- [ ] Item one
+- [ ] Item two
+
+---
+*Added: YYYY-MM-DD | Updated: YYYY-MM-DD — <reason for last update>*
 ```
 
 Use `docs/tasks/` when:
@@ -236,5 +275,5 @@ Update the date when the document changes. The signature is a signal that the do
 - [Git Workflow](git-workflow.md)
 
 ---
-*Maintained by paurodriguez0220 · Last updated: 2026-06-19*
+*Maintained by paurodriguez0220 · Last updated: 2026-06-19 · Added `defined/` task lifecycle stage*
 *Standards: https://github.com/paurodriguez0220/standards-docs*
