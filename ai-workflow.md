@@ -108,6 +108,18 @@ Explicit prohibitions — things the agent must not do regardless of instruction
 
 ---
 
+## Pre-Push Gate (Claude)
+
+Claude must always run the project's test suite before pushing or declaring a task complete. No exceptions.
+
+1. Run `dotnet test` (or the equivalent command for the project)
+2. If any test fails, fix it before pushing — never push with a red test suite
+3. If the project has no tests yet, flag it rather than silently skipping this step
+
+This applies even when the change looks trivial. Confidence without evidence is a bug.
+
+---
+
 ## Commits
 
 - Review every AI-generated commit before it goes anywhere near a shared branch.
@@ -168,6 +180,19 @@ public sealed class MyToolClass
 }
 ```
 
+### Writing Tool Descriptions
+
+The `[Description]` text on a tool is the model's only instruction manual for that tool. Write it for Claude, not for a human reader.
+
+- **State preconditions.** If the tool requires a valid ID from a prior call, say so: *"Use the `id` returned by `GetStatements` — do not guess."*
+- **State what NOT to do.** If the model should not compute a value itself (e.g. totals), say so explicitly: *"Use `totalAmountDue` from this response — do not sum transaction amounts."*
+- **Instruct on confirmation for mutative tools.** Any tool that writes, deletes, or sends something should tell the model to confirm with the user first: *"Ask the user to confirm the amount before calling this."*
+- **Distinguish similar tools.** If two tools return overlapping data, describe when to prefer each one.
+
+Bad description: *"Mark a statement as paid."*
+
+Good description: *"Mark a statement as paid, recording the payment date and amount. Ask the user to confirm the amount matches the statement's `totalAmountDue` before calling. Use the statement `id` from `GetStatements`."*
+
 **SQLite DB path** — resolve relative to the executable, not the working directory:
 
 ```csharp
@@ -224,5 +249,5 @@ Claude Code inherits the terminal PATH so `dotnet <dll>` works here. Restart the
 - [Code Style & Conventions](code-style.md)
 
 ---
-*Maintained by paurodriguez0220 · Last updated: 2026-06-17*
+*Maintained by paurodriguez0220 · Last updated: 2026-06-19*
 *Standards: https://github.com/paurodriguez0220/standards-docs*

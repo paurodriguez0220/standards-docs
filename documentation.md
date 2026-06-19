@@ -71,15 +71,98 @@ Create a `docs/` folder when the project has content that doesn't belong in the 
 
 ```
 docs/
-├── architecture.md       ← system overview, diagrams
-├── decisions/            ← ADRs (see below)
+├── architecture.md         ← system overview, diagrams
+├── decisions/              ← ADRs (see below)
 │   ├── 001-use-ef-core.md
 │   └── 002-jwt-auth.md
-└── runbooks/             ← operational procedures
-    └── rotate-secrets.md
+├── issues/             ← permanent bugs / vendor limitations (see below)
+│   └── pdf-missing-letter.md
+├── runbooks/               ← operational procedures
+│   └── rotate-secrets.md
+└── tasks/                  ← lightweight task tracking (see below)
+    ├── queue/              ← not started / in progress
+    └── finished/           ← completed, kept for reference
 ```
 
 Don't create `docs/` just to have it. One well-written README is better than a docs folder with three stale files.
+
+---
+
+## Issues
+
+Create a `docs/issues/` folder to document bugs or limitations that are permanent — cannot be fixed in this codebase because the root cause is upstream (a library, a vendor API, an OS behaviour).
+
+One file per issue. Name the file after the symptom, not the cause: `pdf-missing-letter.md`, not `pdfpig-nel-bug.md`.
+
+### Template
+
+```markdown
+# <Short title: what the user sees>
+
+**Affected component:** `ClassName` — `method`
+**Status:** Will not fix (<reason>)
+
+## What you see
+<Concrete example with before/after or input/output table.>
+
+## Why it happens
+<Technical explanation.>
+
+## Why it cannot be fixed here
+<Why this is out of scope for this codebase.>
+
+## Possible workaround (not implemented)
+<Optional. What would need to change to fix it upstream or in a future rewrite.>
+```
+
+### When to write one
+
+- A bug exists, is reproducible, and has been investigated — but the fix requires replacing a core dependency or is impractical for now.
+- A behaviour looks wrong but is correct given a library constraint — future maintainers will waste time investigating it again.
+
+Do not write issues for: things that should be fixed but haven't been yet (use `tasks/queue/`), or temporary workarounds you expect to remove soon.
+
+---
+
+## Task Tracking in the Repo
+
+For personal projects or projects without a ticket system, use `docs/tasks/` to track planned work.
+
+```
+docs/tasks/
+├── queue/      ← not started or in progress
+└── finished/   ← done, kept for reference
+```
+
+One file per task. Move the file from `queue/` to `finished/` when done — don't delete it.
+
+### Template
+
+```markdown
+# Task: <Short title>
+
+**Status:** Planned | In Progress | Done
+
+## Goal
+One sentence.
+
+## Context
+Why this matters. What triggered it.
+
+## Proposed Design
+Enough detail to start — not a full spec.
+
+## Acceptance Criteria
+- [ ] Item one
+- [ ] Item two
+```
+
+Use `docs/tasks/` when:
+- The project has no issue tracker.
+- The task is specific enough to need design notes before starting.
+- You want a lightweight record of intent and decisions for future reference.
+
+Don't use it as a substitute for a proper tracker on a shared team project.
 
 ---
 
@@ -153,5 +236,5 @@ Update the date when the document changes. The signature is a signal that the do
 - [Git Workflow](git-workflow.md)
 
 ---
-*Maintained by paurodriguez0220 · Last updated: 2026-06-18*
+*Maintained by paurodriguez0220 · Last updated: 2026-06-19*
 *Standards: https://github.com/paurodriguez0220/standards-docs*

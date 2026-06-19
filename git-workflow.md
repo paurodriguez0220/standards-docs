@@ -111,6 +111,18 @@ Don't auto-generate a description and merge. Write one sentence that makes the r
 
 ---
 
+## Pre-Push Checklist
+
+Before pushing any branch:
+
+1. **Build is clean** — no compiler errors or warnings introduced by the change
+2. **All tests pass** — run the full test suite locally; do not push with failing tests
+3. **No debug/temporary code** — remove any `Console.WriteLine`, hardcoded values, or TODO stubs that weren't there before
+
+This applies to both human-authored and AI-generated changes.
+
+---
+
 ## Main Branch Rules
 
 - `main` is always deployable
@@ -162,5 +174,5 @@ Use semantic versioning: `v{major}.{minor}.{patch}`
 Tag on `main` after merge. Automate release notes where possible.
 
 ---
-*Maintained by paurodriguez0220 · Last updated: 2026-06-17*
+*Maintained by paurodriguez0220 · Last updated: 2026-06-19*
 *Standards: https://github.com/paurodriguez0220/standards-docs*

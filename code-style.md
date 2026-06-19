@@ -217,6 +217,50 @@ public Order GetOrder(int id)
 
 ---
 
+## Azure Functions (.NET Isolated)
+
+### Keeping Diagnostic Tools In-Repo Without Including Them in the Build
+
+Diagnostic or investigative code (one-off scripts, database query helpers, font analysis tools) is worth keeping in the repository for future reference, but must not be compiled into the Functions worker.
+
+Exclude subfolders from the main `.csproj` using `<Compile Remove>`:
+
+```xml
+<ItemGroup>
+  <Compile Remove="SoaDiag/**" />
+  <Compile Remove="BpiDiag/**" />
+</ItemGroup>
+```
+
+The excluded folders can contain their own `.csproj` (making them runnable standalone projects) or just raw `.cs` files — either way the Functions SDK ignores them.
+
+**Rule:** every excluded subfolder must be its own self-contained project (with a separate `.csproj` and `<TargetFramework>`) so it can be run independently with `dotnet run` from within that folder. Do not leave dangling `.cs` files that can only be read, not built.
+
+### Companion Diagnostic CLI Pattern
+
+When a project has a SQLite database (or any other local data store that can be queried directly), add a companion `*Diag/` project alongside the main project:
+
+```
+MyApp/
+├── MyApp.csproj          ← main build
+├── MyAppDiag/
+│   ├── MyAppDiag.csproj  ← standalone, excluded from main build
+│   └── Program.cs        ← CLI verbs: list, show, search, count
+```
+
+The Diag project references only what it needs (e.g. `Microsoft.Data.Sqlite`) and connects to the same database file used by the running app. Standard verbs:
+
+| Verb | What it does |
+|---|---|
+| `statements` | List all records with summary counts |
+| `transactions <id>` | Show all child records for a given parent |
+| `search <keyword>` | Full-text filter across description fields |
+| `counts` | Count child records grouped by parent |
+
+This is faster and safer than loading assemblies into PowerShell or writing ad-hoc SQL in a GUI tool.
+
+---
+
 ## TypeScript
 
 ### Strict Mode
@@ -278,5 +322,5 @@ const getOrder = async (id: any) => { ... }
 - [Testing](testing.md)
 
 ---
-*Maintained by paurodriguez0220 · Last updated: 2026-06-18*
+*Maintained by paurodriguez0220 · Last updated: 2026-06-19*
 *Standards: https://github.com/paurodriguez0220/standards-docs*
