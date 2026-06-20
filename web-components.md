@@ -72,10 +72,16 @@ Stories are the component's interactive contract. They document every meaningful
 
 ### Setup
 
-Storybook 8+ with Vite builder:
+Storybook 10 with Vite builder (required for Vite 8+; v8/v9 require Vite ≤7):
 
 ```bash
-npx storybook@latest init
+npx storybook@10 init
+```
+
+Storybook 10 ships `@vitest/spy` built-in — do **not** install `@storybook/test` separately. Import spy helpers from `storybook/test`:
+
+```ts
+import { fn } from 'storybook/test';
 ```
 
 ### Story format — CSF3
@@ -226,6 +232,46 @@ Rules:
 - Keep a local error state next to every form or action that has an async handler.
 - Clear the error at the start of each new attempt (`setSubmitError(undefined)`).
 - Partial failures (e.g. first DB write succeeds, second fails) must be treated as errors — show the message, do not silently retry.
+
+---
+
+## Dual-Mode Modal Pattern
+
+When a modal handles both **add** and **edit** flows for the same entity, use a single component with an optional `initialValues` prop. The presence of `initialValues` switches the modal into edit mode.
+
+```tsx
+export interface InitialValues {
+  id: number;
+  // ...fields pre-populated from DB
+}
+
+export interface ModalProps {
+  onSave: (fields: ...) => Promise<void>;
+  onClose: () => void;
+  initialValues?: InitialValues;       // absent = add mode
+  onDelete?: (id: number) => Promise<void>; // absent = no delete button
+}
+
+export function Modal({ initialValues, onSave, onClose, onDelete }: ModalProps) {
+  const isEditMode = !!initialValues;
+  // ...
+}
+```
+
+Rules:
+- The `isEditMode` boolean drives the title ("Add X" vs "Edit X"), submit label, and whether the delete button renders.
+- Initialise all form state from `initialValues` in `useState` defaults — not in a `useEffect` that runs after mount, which causes a visible flicker.
+- Guard any `useEffect` that resets form fields with `if (isEditMode) return` to prevent it from overwriting pre-filled state.
+- Delete actions must require a confirmation step inline within the modal (e.g. "Delete X" button → "Cancel / Yes, delete" pair). Never navigate to a separate confirmation screen.
+- After a successful save or delete, call `onClose()` — do not reset state manually; the unmount handles it.
+
+### Testing dual-mode modals in Storybook
+
+Write four stories minimum:
+- `Default` — add mode, empty form
+- `EditMode` — edit mode with `initialValues` pre-filled
+- `CustomSplit` / similar — non-default secondary form variant
+- `ConfirmDelete` — edit mode with the delete confirmation visible (use a `play` function to click the delete button)
 
 ---
 
