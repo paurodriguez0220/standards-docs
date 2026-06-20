@@ -268,6 +268,15 @@ This is faster and safer than loading assemblies into PowerShell or writing ad-h
 
 ## TypeScript
 
+### Philosophy
+
+We use TypeScript as a strongly-typed language, not just "JavaScript with types bolted on." The goal is to catch errors at compile time, not at runtime. A type error discovered by the compiler costs seconds to fix; the same error discovered in production costs much more.
+
+This means:
+- Types are constraints that encode correctness, not annotations added after the fact.
+- If a type is wrong or missing, the code is incomplete — not "good enough to ship."
+- Every `any`, every non-null assertion (`!`), and every type cast (`as`) is a place you are telling the compiler "trust me" instead of proving correctness. Each one increases the chance of a runtime crash.
+
 ### Strict Mode
 
 Always enable strict mode in `tsconfig.json`. No exceptions.

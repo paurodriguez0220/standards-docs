@@ -129,6 +129,7 @@ Rules:
 
 - [Code Style & Conventions](code-style.md)
 - [API Design](api-design.md)
+- [Web Components & Storybook](web-components.md)
 
 ---
 *Maintained by paurodriguez0220 · Last updated: 2026-06-18*
