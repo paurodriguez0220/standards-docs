@@ -63,6 +63,7 @@ AI does the heavy lifting. You set the standard. Use AI to do what you'd otherwi
 | Document | Status |
 | --- | --- |
 | [Azure Infrastructure](azure-infra.md) | ✅ First draft |
+| [Electron Desktop Apps](electron.md) | ✅ First draft |
 
 ### Delivery
 
